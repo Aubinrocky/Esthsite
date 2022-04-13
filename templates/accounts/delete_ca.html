@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Voulez vous supprimer ce chiffre d'affaire ?</p>
+
+<form  action="{% url 'delete_ca' item.id %}" method='POST'>
+    {% csrf_token %}
+    <a href="{% url 'mescomptes' %}">Cancel</a>
+    <input type="submit" name="Confirm">
+</form>
+
+{% endblock content %}
