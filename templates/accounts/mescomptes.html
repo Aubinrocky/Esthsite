@@ -3,11 +3,16 @@
 {% block content %}
 <div class="row">
     <div class="col-md">
-        <div class="card card-body">
+        <div class="col-sm-12">
             <h3>Mes chiffres d'affaires</h3>
+            <br/>
+            <br/>
         </div>
-        <div class="card card-body">
+        <div class="col-sm-4">
             <a class="btn btn-primary  btn-sm btn-block" href={% url 'add_ca' %}>Ajouter un CA</a>
+            <br/>
+        </div>
+        <div class="col-sm-12">
             <table class="table">
                 <tr>
                     <th>Chiffre d'Affaire</th>
@@ -24,7 +29,7 @@
                         <td>{{i.month}}</td>
                         <td>{{i.year}}</td>
                         <td><a class="btn btn-sm btn-info" href="{% url 'edit_ca' i.id %}">Editer</a></td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'delete_ca' i.id %}">Supprimer</a></td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'delete_ca' i.id %}" onclick="return confirm('Etes vous sûr de vouloir le supprimer? Cette opération est irréversible...');">Supprimer</a></td>
                     </tr>
                 {% endfor %}
                  

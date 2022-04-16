@@ -45,10 +45,6 @@ def home(request):
     result = CA.objects.filter(author=current_user).annotate(Sum('montant'))
 
     context = {'result': result}
-    print([i.montant for i in result])
-    # context = {'CAs': CAs, 'CAs_current_user': CAs_current_user,
-    #            'df1': df1, 'df2': df2}
-    # context['qs'] = CA.objects.all()
     return render(request, 'accounts/dashboard.html', context)
 
 
@@ -97,12 +93,8 @@ def editCA(request, pk):
 @login_required(login_url='login')
 def deleteCA(request, pk):
     ca = CA.objects.get(id=pk)
-    print(ca)
-    if request.method == 'POST':
-        ca.delete()
-        return redirect('/mescomptes')
-    context = {'item': ca}
-    return render(request, 'accounts/delete_ca.html', context)
+    ca.delete()
+    return redirect('/mescomptes')
 
 
 @login_required(login_url='login')
