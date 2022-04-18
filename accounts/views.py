@@ -43,8 +43,17 @@ def home(request):
 
     CAs = CA.objects.all()
     result = CA.objects.filter(author=current_user).annotate(Sum('montant'))
+    CA_total = 0
+    nb = 0
+    for user_temp in User.objects.all():
+        # dans CA, on récupère quel montant ? faire le travail sur chaque segment/mois/annee ?
+        CA_temp = CA.objects.filter(author=user_temp)
+        CA_total += CA_temp
+        nb += 1
+    avg_CA = CA_total/nb
 
     context = {'result': result}
+    print([i.montant for i in result])
     return render(request, 'accounts/dashboard.html', context)
 
 
