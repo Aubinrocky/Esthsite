@@ -45,12 +45,13 @@ def home(request):
     result = CA.objects.filter(author=current_user).annotate(Sum('montant'))
     CA_total = 0
     nb = 0
-    for user_temp in User.objects.all():
-        # dans CA, on récupère quel montant ? faire le travail sur chaque segment/mois/annee ?
-        CA_temp = CA.objects.filter(author=user_temp)
-        CA_total += CA_temp
-        nb += 1
-    avg_CA = CA_total/nb
+    #for user_temp in User.objects.all():
+        # dans CA, on récupère quel montant ? faire le travail sur chaque segment/mois/annee ? 
+        #CA_temp = CA.objects.filter(author = user_temp,year = )
+        #CA_total += CA_temp
+        #nb += 1
+    #avg_CA = round(CA_total/nb,2)
+    
 
     context = {'result': result}
     print([i.montant for i in result])
@@ -102,8 +103,12 @@ def editCA(request, pk):
 @login_required(login_url='login')
 def deleteCA(request, pk):
     ca = CA.objects.get(id=pk)
-    ca.delete()
-    return redirect('/mescomptes')
+    print(ca)
+    if request.method == 'POST':
+        ca.delete()
+        return redirect('/mescomptes')
+    context = {'item': ca}
+    return render(request, 'accounts/delete_ca.html', context)
 
 
 @login_required(login_url='login')
